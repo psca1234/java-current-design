@@ -48,7 +48,7 @@ public class ReaderWriterLock {
     public synchronized void writeLock() throws InterruptedException {
         this.waittingwriters++;
         try{
-            while(this.writingwriters>0 || this.readingreaders >0){
+            while(this.readingreaders >0||this.writingwriters>0 ){
                 this.wait();
             }
             this.writingwriters ++;

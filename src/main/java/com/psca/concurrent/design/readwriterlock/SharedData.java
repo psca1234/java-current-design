@@ -21,7 +21,8 @@ public class SharedData {
     public char[] readFromShardData() throws InterruptedException {
         try {
             lock.readLock();
-            return this.doRead();
+            char[] resultBuff = this.doRead();
+            return resultBuff;
         }finally {
             lock.unReadLock();
         }
