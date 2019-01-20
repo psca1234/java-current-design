@@ -1,5 +1,7 @@
 package com.psca.concurrent.design.futuredesign;
 
+import java.util.function.Consumer;
+
 /**
  * @Description: java类作用描述
  * @Author: pansc
@@ -10,11 +12,12 @@ package com.psca.concurrent.design.futuredesign;
  * @Version: 1.0
  */
 public class FutureService<T> {
-    public <T> Future<T> submit(final FutureTask<T> futureTask){
+    public <T> Future<T> submit(final FutureTask<T> futureTask, Consumer<T> consumer){
         AsynFuture<T> asynFuture = new AsynFuture<>();
         new Thread(()->{
             T result= futureTask.call();
             asynFuture.doneNotify(result);
+            consumer.accept(result);
         }).start();
         return asynFuture;
     }
